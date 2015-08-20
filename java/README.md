@@ -1,3 +1,4 @@
+```
 src
  |-- algo ( templates for common and important algorithms, techniques)
        |-- Partition: partition technique used in quicksort
@@ -9,3 +10,4 @@ src
  |-- pattern
        |-- Singleton
  |-- string
+``` 
