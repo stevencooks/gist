@@ -1,7 +1,8 @@
 /**
  * File: src/lib/Stack.java
  ************************************************************************
- *
+ * Single-linked list based implementation.
+ * 
  ************************************************************************
  */
 package lib;
@@ -10,23 +11,19 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class Stack<Item> implements Iterable<Item> {
+
     private int N; // size of stack
-    private Node<Item> dummyHead; // dummy head node on top of stack's top
+    private Node dummyHead; // dummy head node on top of stack's top
 
     // helper static nested class
-    private static class Node<Item> {
+    private class Node {
         private Item item; // item stored inside this node
-        private Node<Item> next; // node next to this node
-
-        public Node(Item item) {
-            this.item = item;
-        }
-
+        private Node next; // node next to this node
     }
 
     /** Initializes an empty stack. */
     public Stack() {
-        dummyHead = new Node<Item>(null);
+        dummyHead = new Node();
         N = 0;
     }
 
@@ -53,7 +50,8 @@ public class Stack<Item> implements Iterable<Item> {
      * @return the <code>item</code> argument.
      */
     public Item push(Item item) {
-        Node<Item> node = new Node<>(item);
+        Node node = new Node();
+        node.item = item;
         node.next = dummyHead.next;
         dummyHead.next = node;
         N++;
@@ -69,7 +67,7 @@ public class Stack<Item> implements Iterable<Item> {
         if (isEmpty()) {
             throw new NoSuchElementException("stack underflow");
         }
-        Node<Item> node = dummyHead.next;
+        Node node = dummyHead.next;
         dummyHead.next = node.next;
         Item item = node.item;
         node = null;
@@ -91,14 +89,14 @@ public class Stack<Item> implements Iterable<Item> {
 
     @Override
     public Iterator<Item> iterator() {
-        return new ListIterator<Item>(dummyHead);
+        return new ListIterator();
     }
 
-    private class ListIterator<Item> implements Iterator<Item> {
+    private class ListIterator implements Iterator<Item> {
 
-        private Node<Item> node;
+        private Node node;
 
-        public ListIterator(Node<Item> dummyHead) {
+        public ListIterator() {
             node = dummyHead;
         }
 
